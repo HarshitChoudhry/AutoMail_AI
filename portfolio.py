@@ -3,7 +3,7 @@ import chromadb
 import uuid
 import fitz
 import docx2txt
-from utils import clean_text  # ✅ Import clean_text function
+from utils import clean_text  
 
 class Portfolio:
     def __init__(self):
@@ -40,16 +40,16 @@ class Portfolio:
         else:
             raise ValueError("Unsupported file format. Upload a PDF or DOCX.")
 
-        cleaned_resume_text = clean_text(resume_text)  # ✅ Use imported clean_text function
+        cleaned_resume_text = clean_text(resume_text) 
         skills = self.extract_skills_from_resume(cleaned_resume_text)
 
-        # Convert list to a comma-separated string ✅
+        # Converting list to a comma-separated string
         skills_str = ", ".join(skills)  
 
-        # Store extracted skills in ChromaDB
-        if self.collection.count() == 0:  # Ensure no duplicate entries
+        # Storing extracted skills in ChromaDB
+        if self.collection.count() == 0: 
             self.collection.add(
-                documents=[skills_str],  # ✅ Store skills as a single string
-                metadatas={"skills": skills_str},  # ✅ ChromaDB requires metadata values to be str, int, float, or bool
+                documents=[skills_str],  
+                metadatas={"skills": skills_str},  
                 ids=[str(uuid.uuid4())]
             )
